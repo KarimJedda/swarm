@@ -2,6 +2,9 @@
 
 # Swarm (experimental, educational)
 
+OpenAI fork. 
+
+
 An educational framework exploring ergonomic, lightweight multi-agent orchestration.
 
 > [!WARNING]
@@ -11,16 +14,16 @@ An educational framework exploring ergonomic, lightweight multi-agent orchestrat
 
 ## Install
 
-Requires Python 3.10+
+Requires Python 3+
 
 ```shell
-pip install git+ssh://git@github.com/openai/swarm.git
+pip install git+ssh://git@github.com/KarimJedda/swarm.git
 ```
 
 or
 
 ```shell
-pip install git+https://github.com/openai/swarm.git
+pip install git+https://github.com/KarimJedda/swarm.git
 ```
 
 ## Usage
