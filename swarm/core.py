@@ -69,22 +69,20 @@ class Swarm:
         return self.client.chat.completions.create(**create_params)
 
     def handle_function_result(self, result, debug) -> Result:
-        match result:
-            case Result() as result:
-                return result
-
-            case Agent() as agent:
-                return Result(
-                    value=json.dumps({"assistant": agent.name}),
-                    agent=agent,
-                )
-            case _:
-                try:
-                    return Result(value=str(result))
-                except Exception as e:
-                    error_message = f"Failed to cast response to string: {result}. Make sure agent functions return a string or Result object. Error: {str(e)}"
-                    debug_print(debug, error_message)
-                    raise TypeError(error_message)
+        if isinstance(result, Result):
+            return result
+        elif isinstance(result, Agent):
+            return Result(
+                value=json.dumps({"assistant": result.name}),
+                agent=result,
+            )
+        else:
+            try:
+                return Result(value=str(result))
+            except Exception as e:
+                error_message = f"Failed to cast response to string: {result}. Make sure agent functions return a string or Result object. Error: {str(e)}"
+                debug_print(debug, error_message)
+                raise TypeError(error_message)
 
     def handle_tool_calls(
         self,
