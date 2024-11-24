@@ -62,7 +62,7 @@ You can customize any model that runs behind the scenes.
 
 This opens up further tool use and cross model swarms. 
 
-```
+```python
 from openai import OpenAI
 from swarm import Swarm, Agent
 
