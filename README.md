@@ -55,6 +55,48 @@ What can I assist?
 
 OG repo here: https://github.com/openai/swarm
 
+
+# Work with local OpenWebUI 
+
+You can customize any model that runs behind the scenes. 
+
+This opens up further tool use and cross model swarms. 
+
+```
+from openai import OpenAI
+from swarm import Swarm, Agent
+
+# localhost:3000 has an OpenWebUI instance running
+openai_api = OpenAI(
+    base_url="http://localhost:3000/api/", 
+    api_key="XXXX"
+)
+
+client = Swarm(client=openai_api)
+
+def transfer_to_agent_b():
+    return agent_b
+
+
+agent_a = Agent(
+    name="Agent A",
+    instructions="You are a helpful agent.",
+    functions=[transfer_to_agent_b],
+)
+
+agent_b = Agent(
+    name="Agent B",
+    instructions="Only speak in Haikus.",
+)
+
+response = client.run(
+    agent=agent_a,
+    messages=[{"role": "user", "content": "I want to talk to agent B."}],
+)
+
+print(response.messages[-1]["content"])
+```
+
 # Core Contributors
 
 - Ilan Bigio - [ibigio](https://github.com/ibigio)
